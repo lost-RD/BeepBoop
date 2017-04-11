@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?><DefPackage-SoundDef>
+
+  <SoundDef>
+    <defName>BeepBoop</defName>  
+    <eventNames />  
+    <maxSimultaneous>1</maxSimultaneous>  
+    <subSounds>
+      <li>
+        <onCamera>True</onCamera>      
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>UI/Alerts/AlertNegative</clipPath>
+          </li>
+        </grains>      
+        <volumeRange>
+          <min>40</min>        
+          <max>40</max>
+        </volumeRange>
+      </li>
+    </subSounds>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PawnDeath</defName>  
+    <eventNames />  
+    <subSounds>
+      <li>
+        <onCamera>True</onCamera>      
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>PawnDeath</clipPath>
+          </li>
+        </grains>      
+        <volumeRange>
+          <min>40</min>        
+          <max>40</max>
+        </volumeRange>
+      </li>
+    </subSounds>
+  </SoundDef>
+
+</DefPackage-SoundDef>

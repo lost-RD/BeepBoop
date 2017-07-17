@@ -15,5 +15,13 @@
 		<sourceClass>Plant</sourceClass>
 		<sourceMethod>MakeLeafless</sourceMethod>
 	</RD_BeepBoop.CustomAlertDef>
+	
+	<RD_BeepBoop.CustomAlertDef>
+		<defName>TestBenefit</defName>
+		<sourceSound>3</sourceSound>
+		<replacementSound>PlantDeath</replacementSound>
+		<sourceClass>Plant</sourceClass>
+		<sourceMethod>MakeLeafless</sourceMethod>
+	</RD_BeepBoop.CustomAlertDef>
 </Defs>
 

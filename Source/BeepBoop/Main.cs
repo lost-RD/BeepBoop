@@ -19,6 +19,11 @@ namespace RD_BeepBoop
 			var harmony = HarmonyInstance.Create("org.rd.beepboop");
 			harmony.PatchAll(Assembly.GetExecutingAssembly());
 			listCustomAlerts = (List<CustomAlertDef>)DefDatabase<CustomAlertDef>.AllDefs;
+			alertsStandard     = from def in listCustomAlerts where def.sourceSound == MessageSound.Standard     select def;
+			alertsRejectInput  = from def in listCustomAlerts where def.sourceSound == MessageSound.RejectInput  select def;
+			alertsBenefit      = from def in listCustomAlerts where def.sourceSound == MessageSound.Benefit      select def;
+			alertsNegative     = from def in listCustomAlerts where def.sourceSound == MessageSound.Negative     select def;
+			alertsSeriousAlert = from def in listCustomAlerts where def.sourceSound == MessageSound.SeriousAlert select def;
 			Log_.Print("# Found the following custom alerts:");
 			foreach (CustomAlertDef def in listCustomAlerts)
 			{
@@ -28,11 +33,16 @@ namespace RD_BeepBoop
 		}
 
 		public static List<CustomAlertDef> listCustomAlerts;
+		public static IEnumerable<CustomAlertDef> alertsStandard;
+		public static IEnumerable<CustomAlertDef> alertsRejectInput;
+		public static IEnumerable<CustomAlertDef> alertsBenefit;
+		public static IEnumerable<CustomAlertDef> alertsNegative;
+		public static IEnumerable<CustomAlertDef> alertsSeriousAlert;
 	}
 
 	public class Log_
 	{
-		private static bool DEBUG = true;
+		private static bool DEBUG = false;
 
 		public static void Message(string text)
 		{
@@ -60,12 +70,6 @@ namespace RD_BeepBoop
 	public class MessagesMessage_Patch
 	{
 
-		public static Type PawnDeathType = typeof(Pawn_HealthTracker);
-		public static MethodBase PawnDeathMethod = PawnDeathType.GetMethod("NotifyPlayerOfKilled");
-
-		public static Type PlantDeathType = typeof(Plant);
-		public static MethodBase PlantDeathMethod = PlantDeathType.GetMethod("MakeLeafless");
-
 		static MethodBase TargetMethod()
 		{
 			var parameters = new Type[] { AccessTools.Inner(typeof(Messages), "LiveMessage"), typeof(MessageSound) };
@@ -82,73 +86,141 @@ namespace RD_BeepBoop
 
 		static void Postfix(object msg, MessageSound __state)
 		{
-			bool hasFired = false;
 			switch (__state)
 			{
-				case MessageSound.Negative:
+				case MessageSound.Standard:
 				{
 					Log_.Warning($"Message postfix for {__state.ToString()}");
-					var txt = Traverse.Create(msg).Field("text").GetValue<string>();
+					string txt = Traverse.Create(msg).Field("text").GetValue<string>();
 					Log_.Error($"# Message {__state} txt='{txt}'");
-					var stackTrace = new StackTrace();
+					StackTrace stackTrace = new StackTrace();
 					for (int i = 0; i < stackTrace.FrameCount; i++)
 					{
-						var method = stackTrace.GetFrame(i).GetMethod();
+						MethodBase method = stackTrace.GetFrame(i).GetMethod();
 						Log_.Message($"# {i} - {method.DeclaringType.Name}.{method.Name}");
-
-						if (method.DeclaringType.Equals(PawnDeathType) && method.Equals(PawnDeathMethod))
+						foreach (CustomAlertDef def in Main.alertsStandard)
 						{
-							string defName = "PawnDeath";
-							SoundDef soundDef = SoundDef.Named(defName);
-							Log_.Warning($"# Should play {defName} here");
-							soundDef.PlayOneShotOnCamera();
-							i = stackTrace.FrameCount;
-							hasFired = true;
-							Log_.Warning($"# Should have played {defName} there");
-							break;
+							if (method.DeclaringType.Equals(def.type) && method.Equals(def.method))
+							{
+								SoundDef soundDef = def.replacementSound;
+								Log_.Warning($"# Should play {def.replacementSound.defName} here");
+								soundDef.PlayOneShotOnCamera();
+								i = stackTrace.FrameCount;
+								Log_.Warning($"# Should have played {def.replacementSound.defName} there");
+								break;
+							}
 						}
-						else if (method.DeclaringType.Equals(PlantDeathType) && method.Equals(PlantDeathMethod))
-						{
-							string defName = "PlantDeath";
-							SoundDef soundDef = SoundDef.Named(defName);
-							Log_.Warning($"# Should play {defName} here");
-							soundDef.PlayOneShotOnCamera();
-							i = stackTrace.FrameCount;
-							hasFired = true;
-							Log_.Warning($"# Should have played {defName} there");
-							break;
-						}
+						//Log_.Message("Did not find a matching CustomAlertDef");
 					}
 					break;
 				}
-				default:
+
+				case MessageSound.RejectInput:
 				{
-					if (!hasFired)
+					Log_.Warning($"Message postfix for {__state.ToString()}");
+					string txt = Traverse.Create(msg).Field("text").GetValue<string>();
+					Log_.Error($"# Message {__state} txt='{txt}'");
+					StackTrace stackTrace = new StackTrace();
+					for (int i = 0; i < stackTrace.FrameCount; i++)
 					{
-						SoundDef soundDef = null;
-						switch (__state)
+						MethodBase method = stackTrace.GetFrame(i).GetMethod();
+						Log_.Message($"# {i} - {method.DeclaringType.Name}.{method.Name}");
+						foreach (CustomAlertDef def in Main.alertsRejectInput)
 						{
-							case MessageSound.Standard:
-								soundDef = RimWorld.SoundDefOf.MessageAlert;
+							if (method.DeclaringType.Equals(def.type) && method.Equals(def.method))
+							{
+								SoundDef soundDef = def.replacementSound;
+								Log_.Warning($"# Should play {def.replacementSound.defName} here");
+								soundDef.PlayOneShotOnCamera();
+								i = stackTrace.FrameCount;
+								Log_.Warning($"# Should have played {def.replacementSound.defName} there");
 								break;
-							case MessageSound.RejectInput:
-								soundDef = RimWorld.SoundDefOf.ClickReject;
-								break;
-							case MessageSound.Benefit:
-								soundDef = RimWorld.SoundDefOf.MessageBenefit;
-								break;
-							case MessageSound.Negative:
-								soundDef = RimWorld.SoundDefOf.MessageAlertNegative;
-								break;
-							case MessageSound.SeriousAlert:
-								soundDef = RimWorld.SoundDefOf.MessageSeriousAlert;
-								break;
+							}
 						}
-						Log_.Warning("# Should play an alert here");
-						soundDef.PlayOneShotOnCamera();
-						Log_.Warning("# Should have played an alert there");
+						//Log_.Message("Did not find a matching CustomAlertDef");
 					}
-				break;
+					break;
+				}
+
+				case MessageSound.Benefit:
+				{
+					Log_.Warning($"Message postfix for {__state.ToString()}");
+					string txt = Traverse.Create(msg).Field("text").GetValue<string>();
+					Log_.Error($"# Message {__state} txt='{txt}'");
+					StackTrace stackTrace = new StackTrace();
+					for (int i = 0; i < stackTrace.FrameCount; i++)
+					{
+						MethodBase method = stackTrace.GetFrame(i).GetMethod();
+						Log_.Message($"# {i} - {method.DeclaringType.Name}.{method.Name}");
+						foreach (CustomAlertDef def in Main.alertsBenefit)
+						{
+							if (method.DeclaringType.Equals(def.type) && method.Equals(def.method))
+							{
+								SoundDef soundDef = def.replacementSound;
+								Log_.Warning($"# Should play {def.replacementSound.defName} here");
+								soundDef.PlayOneShotOnCamera();
+								i = stackTrace.FrameCount;
+								Log_.Warning($"# Should have played {def.replacementSound.defName} there");
+								break;
+							}
+						}
+						//Log_.Message("Did not find a matching CustomAlertDef");
+					}
+					break;
+				}
+
+				case MessageSound.Negative:
+				{
+					Log_.Warning($"Message postfix for {__state.ToString()}");
+					string txt = Traverse.Create(msg).Field("text").GetValue<string>();
+					Log_.Error($"# Message {__state} txt='{txt}'");
+					StackTrace stackTrace = new StackTrace();
+					for (int i = 0; i < stackTrace.FrameCount; i++)
+					{
+						MethodBase method = stackTrace.GetFrame(i).GetMethod();
+						Log_.Message($"# {i} - {method.DeclaringType.Name}.{method.Name}");
+						foreach (CustomAlertDef def in Main.alertsNegative)
+						{
+							if (method.DeclaringType.Equals(def.type) && method.Equals(def.method))
+							{
+								SoundDef soundDef = def.replacementSound;
+								Log_.Warning($"# Should play {def.replacementSound.defName} here");
+								soundDef.PlayOneShotOnCamera();
+								i = stackTrace.FrameCount;
+								Log_.Warning($"# Should have played {def.replacementSound.defName} there");
+								break;
+							}
+						}
+						//Log_.Message("Did not find a matching CustomAlertDef");
+					}
+					break;
+				}
+
+				case MessageSound.SeriousAlert:
+				{
+					Log_.Warning($"Message postfix for {__state.ToString()}");
+					string txt = Traverse.Create(msg).Field("text").GetValue<string>();
+					Log_.Error($"# Message {__state} txt='{txt}'");
+					StackTrace stackTrace = new StackTrace();
+					for (int i = 0; i < stackTrace.FrameCount; i++)
+					{
+						MethodBase method = stackTrace.GetFrame(i).GetMethod();
+						Log_.Message($"# {i} - {method.DeclaringType.Name}.{method.Name}");
+						foreach (CustomAlertDef def in Main.alertsSeriousAlert)
+						{
+							if (method.DeclaringType.Equals(def.type) && method.Equals(def.method))
+							{
+								SoundDef soundDef = def.replacementSound;
+								Log_.Warning($"# Should play {def.replacementSound.defName} here");
+								soundDef.PlayOneShotOnCamera();
+								i = stackTrace.FrameCount;
+								Log_.Warning($"# Should have played {def.replacementSound.defName} there");
+								break;
+							}
+						}
+						//Log_.Message("Did not find a matching CustomAlertDef");
+					}
+					break;
 				}
 			}
 		}

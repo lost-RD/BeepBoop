@@ -21,6 +21,26 @@
   </SoundDef>
 
   <SoundDef>
+    <defName>BeepBeep</defName>  
+    <eventNames />  
+    <maxSimultaneous>1</maxSimultaneous>  
+    <subSounds>
+      <li>
+        <onCamera>True</onCamera>      
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>UI/Alerts/AlertBasic</clipPath>
+          </li>
+        </grains>      
+        <volumeRange>
+          <min>40</min>        
+          <max>40</max>
+        </volumeRange>
+      </li>
+    </subSounds>
+  </SoundDef>
+
+  <SoundDef>
     <defName>OhNo</defName>
     <eventNames />
     <subSounds>

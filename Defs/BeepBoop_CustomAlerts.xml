@@ -3,7 +3,7 @@
 	<RD_BeepBoop.CustomAlertDef>
 		<defName>ColonistDied</defName>
 		<sourceMessageSound>Negative</sourceMessageSound>
-		<replacementSoundDef>PawnDeath</replacementSoundDef>
+		<replacementSoundDef>BeepBoop</replacementSoundDef>
 		<sourceClass>Pawn_HealthTracker</sourceClass>
 		<sourceMethod>NotifyPlayerOfKilled</sourceMethod>
 	</RD_BeepBoop.CustomAlertDef>
@@ -11,7 +11,7 @@
 	<RD_BeepBoop.CustomAlertDef>
 		<defName>CropDiedOfCold</defName>
 		<sourceMessageSound>Negative</sourceMessageSound>
-		<replacementSoundDef>MessageAlert</replacementSoundDef>
+		<replacementSoundDef>BeepBeep</replacementSoundDef>
 		<sourceClass>Plant</sourceClass>
 		<sourceMethod>MakeLeafless</sourceMethod>
 	</RD_BeepBoop.CustomAlertDef>
@@ -19,7 +19,7 @@
 	<RD_BeepBoop.CustomAlertDef>
 		<defName>BugHiveReproduced</defName>
 		<sourceMessageSound>Negative</sourceMessageSound>
-		<replacementSoundDef>MessageAlert</replacementSoundDef>
+		<replacementSoundDef>BeepBeep</replacementSoundDef>
 		<sourceClass>CompSpawnerHives</sourceClass>
 		<sourceMethod>CompTickRare</sourceMethod>
 	</RD_BeepBoop.CustomAlertDef>
@@ -27,7 +27,7 @@
 	<RD_BeepBoop.CustomAlertDef>
 		<defName>NoHandlerSkilledEnough</defName>
 		<sourceMessageSound>Negative</sourceMessageSound>
-		<replacementSoundDef>MessageAlert</replacementSoundDef>
+		<replacementSoundDef>BeepBeep</replacementSoundDef>
 		<sourceClass>Designator_Tame</sourceClass>
 		<sourceMethod>FinalizeDesignationSucceeded</sourceMethod>
 	</RD_BeepBoop.CustomAlertDef>
@@ -35,7 +35,7 @@
 	<RD_BeepBoop.CustomAlertDef>
 		<defName>FoodPoisoning</defName>
 		<sourceMessageSound>Negative</sourceMessageSound>
-		<replacementSoundDef>MessageAlert</replacementSoundDef>
+		<replacementSoundDef>BeepBeep</replacementSoundDef>
 		<sourceClass>FoodUtility</sourceClass>
 		<sourceMethod>AddFoodPoisoningHediff</sourceMethod>
 	</RD_BeepBoop.CustomAlertDef>
@@ -43,7 +43,7 @@
 	<RD_BeepBoop.CustomAlertDef>
 		<defName>AnimalInsanityPulse</defName>
 		<sourceMessageSound>Negative</sourceMessageSound>
-		<replacementSoundDef>MessageAlert</replacementSoundDef>
+		<replacementSoundDef>BeepBeep</replacementSoundDef>
 		<sourceClass>Building_PsychicEmanator</sourceClass>
 		<sourceMethod>DoAnimalInsanityPulse</sourceMethod>
 	</RD_BeepBoop.CustomAlertDef>
@@ -51,7 +51,7 @@
 	<RD_BeepBoop.CustomAlertDef>
 		<defName>AccidentalOverdose</defName>
 		<sourceMessageSound>Negative</sourceMessageSound>
-		<replacementSoundDef>MessageAlert</replacementSoundDef>
+		<replacementSoundDef>BeepBeep</replacementSoundDef>
 		<sourceClass>CompDrug</sourceClass>
 		<sourceMethod>PostIngested</sourceMethod>
 	</RD_BeepBoop.CustomAlertDef>
@@ -59,7 +59,7 @@
 	<RD_BeepBoop.CustomAlertDef>
 		<defName>WornApparelDeterioratedAway</defName>
 		<sourceMessageSound>Negative</sourceMessageSound>
-		<replacementSoundDef>MessageAlert</replacementSoundDef>
+		<replacementSoundDef>BeepBeep</replacementSoundDef>
 		<sourceClass>Pawn_ApparelTracker</sourceClass>
 		<sourceMethod>TakeWearoutDamageForDay</sourceMethod>
 	</RD_BeepBoop.CustomAlertDef>
@@ -67,7 +67,7 @@
 	<RD_BeepBoop.CustomAlertDef>
 		<defName>MedicalOperationFailureMinor</defName>
 		<sourceMessageSound>Negative</sourceMessageSound>
-		<replacementSoundDef>MessageAlert</replacementSoundDef>
+		<replacementSoundDef>BeepBeep</replacementSoundDef>
 		<sourceClass>Recipe_Surgery</sourceClass>
 		<sourceMethod>CheckSurgeryFail</sourceMethod>
 	</RD_BeepBoop.CustomAlertDef>
@@ -75,7 +75,7 @@
 	<RD_BeepBoop.CustomAlertDef>
 		<defName>CaravanMemberHasExtremeMentalBreak</defName>
 		<sourceMessageSound>Negative</sourceMessageSound>
-		<replacementSoundDef>MessageAlert</replacementSoundDef>
+		<replacementSoundDef>BeepBeep</replacementSoundDef>
 		<sourceClass>MentalStateHandler</sourceClass>
 		<sourceMethod>TryStartMentalState</sourceMethod>
 	</RD_BeepBoop.CustomAlertDef>
@@ -83,7 +83,7 @@
 	<RD_BeepBoop.CustomAlertDef>
 		<defName>CorpseEatenByPredator</defName>
 		<sourceMessageSound>Negative</sourceMessageSound>
-		<replacementSoundDef>MessageAlert</replacementSoundDef>
+		<replacementSoundDef>BeepBeep</replacementSoundDef>
 		<sourceClass>Corpse</sourceClass>
 		<sourceMethod>IngestedCalculateAmounts</sourceMethod>
 	</RD_BeepBoop.CustomAlertDef>
@@ -91,7 +91,7 @@
 	<RD_BeepBoop.CustomAlertDef>
 		<defName>Miscarriage</defName>
 		<sourceMessageSound>Negative</sourceMessageSound>
-		<replacementSoundDef>MessageAlert</replacementSoundDef>
+		<replacementSoundDef>BeepBeep</replacementSoundDef>
 		<sourceClass>Hediff_Pregnant</sourceClass>
 		<sourceMethod>Tick</sourceMethod>
 	</RD_BeepBoop.CustomAlertDef>
@@ -99,7 +99,7 @@
 	<RD_BeepBoop.CustomAlertDef>
 		<defName>RoofCollapsed</defName>
 		<sourceMessageSound>Negative</sourceMessageSound>
-		<replacementSoundDef>MessageAlert</replacementSoundDef>
+		<replacementSoundDef>BeepBeep</replacementSoundDef>
 		<sourceClass>RoofCollapseBufferResolver</sourceClass>
 		<sourceMethod>CollapseRoofsMarkedToCollapse</sourceMethod>
 	</RD_BeepBoop.CustomAlertDef>

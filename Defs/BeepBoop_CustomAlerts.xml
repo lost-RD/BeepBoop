@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<RD_BeepBoop.CustomAlertDef>
+		<defName>WhenMyPawnDies</defName>
+		<sourceSound>4</sourceSound>
+		<replacementSound>PawnDeath</replacementSound>
+		<sourceClass>Pawn_HealthTracker</sourceClass>
+		<sourceMethod>NotifyPlayerOfKilled</sourceMethod>
+	</RD_BeepBoop.CustomAlertDef>
+	
+	<RD_BeepBoop.CustomAlertDef>
+		<defName>WhenMyPlantDies</defName>
+		<sourceSound>4</sourceSound>
+		<replacementSound>PlantDeath</replacementSound>
+		<sourceClass>Plant</sourceClass>
+		<sourceMethod>MakeLeafless</sourceMethod>
+	</RD_BeepBoop.CustomAlertDef>
+</Defs>
+

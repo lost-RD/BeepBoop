@@ -2,26 +2,17 @@
 <Defs>
 	<RD_BeepBoop.CustomAlertDef>
 		<defName>WhenMyPawnDies</defName>
-		<sourceSound>4</sourceSound>
-		<replacementSound>PawnDeath</replacementSound>
+		<sourceMessageSound>Negative</sourceMessageSound>
+		<replacementSoundDef>PawnDeath</replacementSoundDef>
 		<sourceClass>Pawn_HealthTracker</sourceClass>
 		<sourceMethod>NotifyPlayerOfKilled</sourceMethod>
 	</RD_BeepBoop.CustomAlertDef>
 	
 	<RD_BeepBoop.CustomAlertDef>
 		<defName>WhenMyPlantDies</defName>
-		<sourceSound>4</sourceSound>
-		<replacementSound>PlantDeath</replacementSound>
-		<sourceClass>Plant</sourceClass>
-		<sourceMethod>MakeLeafless</sourceMethod>
-	</RD_BeepBoop.CustomAlertDef>
-	
-	<RD_BeepBoop.CustomAlertDef>
-		<defName>TestBenefit</defName>
-		<sourceSound>3</sourceSound>
-		<replacementSound>PlantDeath</replacementSound>
+		<sourceMessageSound>Negative</sourceMessageSound>
+		<replacementSoundDef>PlantDeath</replacementSoundDef>
 		<sourceClass>Plant</sourceClass>
 		<sourceMethod>MakeLeafless</sourceMethod>
 	</RD_BeepBoop.CustomAlertDef>
 </Defs>
-

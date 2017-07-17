@@ -19,15 +19,15 @@ namespace RD_BeepBoop
 			var harmony = HarmonyInstance.Create("org.rd.beepboop");
 			harmony.PatchAll(Assembly.GetExecutingAssembly());
 			listCustomAlerts = (List<CustomAlertDef>)DefDatabase<CustomAlertDef>.AllDefs;
-			alertsStandard     = from def in listCustomAlerts where def.sourceSound == MessageSound.Standard     select def;
-			alertsRejectInput  = from def in listCustomAlerts where def.sourceSound == MessageSound.RejectInput  select def;
-			alertsBenefit      = from def in listCustomAlerts where def.sourceSound == MessageSound.Benefit      select def;
-			alertsNegative     = from def in listCustomAlerts where def.sourceSound == MessageSound.Negative     select def;
-			alertsSeriousAlert = from def in listCustomAlerts where def.sourceSound == MessageSound.SeriousAlert select def;
+			alertsStandard     = from def in listCustomAlerts where def.sourceMessageSound == MessageSound.Standard     select def;
+			alertsRejectInput  = from def in listCustomAlerts where def.sourceMessageSound == MessageSound.RejectInput  select def;
+			alertsBenefit      = from def in listCustomAlerts where def.sourceMessageSound == MessageSound.Benefit      select def;
+			alertsNegative     = from def in listCustomAlerts where def.sourceMessageSound == MessageSound.Negative     select def;
+			alertsSeriousAlert = from def in listCustomAlerts where def.sourceMessageSound == MessageSound.SeriousAlert select def;
 			Log_.Print("# Found the following custom alerts:");
 			foreach (CustomAlertDef def in listCustomAlerts)
 			{
-				Log_.Print($"## {def.defName}: replace MessageSound.{def.sourceSound.ToString()} in {def.sourceClass}.{def.sourceMethod} with SoundDef {def.replacementSound.ToString()}");
+				Log_.Print($"## {def.defName}: replace MessageSound.{def.sourceMessageSound.ToString()} in {def.sourceClass}.{def.sourceMethod} with SoundDef {def.replacementSoundDef.ToString()}");
 			}
 			Log_.Print("Initialised!");
 		}
@@ -102,11 +102,11 @@ namespace RD_BeepBoop
 						{
 							if (method.DeclaringType.Equals(def.type) && method.Equals(def.method))
 							{
-								SoundDef soundDef = def.replacementSound;
-								Log_.Warning($"# Should play {def.replacementSound.defName} here");
+								SoundDef soundDef = def.replacementSoundDef;
+								Log_.Warning($"# Should play {def.replacementSoundDef.defName} here");
 								soundDef.PlayOneShotOnCamera();
 								i = stackTrace.FrameCount;
-								Log_.Warning($"# Should have played {def.replacementSound.defName} there");
+								Log_.Warning($"# Should have played {def.replacementSoundDef.defName} there");
 								break;
 							}
 						}
@@ -129,11 +129,11 @@ namespace RD_BeepBoop
 						{
 							if (method.DeclaringType.Equals(def.type) && method.Equals(def.method))
 							{
-								SoundDef soundDef = def.replacementSound;
-								Log_.Warning($"# Should play {def.replacementSound.defName} here");
+								SoundDef soundDef = def.replacementSoundDef;
+								Log_.Warning($"# Should play {def.replacementSoundDef.defName} here");
 								soundDef.PlayOneShotOnCamera();
 								i = stackTrace.FrameCount;
-								Log_.Warning($"# Should have played {def.replacementSound.defName} there");
+								Log_.Warning($"# Should have played {def.replacementSoundDef.defName} there");
 								break;
 							}
 						}
@@ -156,11 +156,11 @@ namespace RD_BeepBoop
 						{
 							if (method.DeclaringType.Equals(def.type) && method.Equals(def.method))
 							{
-								SoundDef soundDef = def.replacementSound;
-								Log_.Warning($"# Should play {def.replacementSound.defName} here");
+								SoundDef soundDef = def.replacementSoundDef;
+								Log_.Warning($"# Should play {def.replacementSoundDef.defName} here");
 								soundDef.PlayOneShotOnCamera();
 								i = stackTrace.FrameCount;
-								Log_.Warning($"# Should have played {def.replacementSound.defName} there");
+								Log_.Warning($"# Should have played {def.replacementSoundDef.defName} there");
 								break;
 							}
 						}
@@ -183,11 +183,11 @@ namespace RD_BeepBoop
 						{
 							if (method.DeclaringType.Equals(def.type) && method.Equals(def.method))
 							{
-								SoundDef soundDef = def.replacementSound;
-								Log_.Warning($"# Should play {def.replacementSound.defName} here");
+								SoundDef soundDef = def.replacementSoundDef;
+								Log_.Warning($"# Should play {def.replacementSoundDef.defName} here");
 								soundDef.PlayOneShotOnCamera();
 								i = stackTrace.FrameCount;
-								Log_.Warning($"# Should have played {def.replacementSound.defName} there");
+								Log_.Warning($"# Should have played {def.replacementSoundDef.defName} there");
 								break;
 							}
 						}
@@ -210,11 +210,11 @@ namespace RD_BeepBoop
 						{
 							if (method.DeclaringType.Equals(def.type) && method.Equals(def.method))
 							{
-								SoundDef soundDef = def.replacementSound;
-								Log_.Warning($"# Should play {def.replacementSound.defName} here");
+								SoundDef soundDef = def.replacementSoundDef;
+								Log_.Warning($"# Should play {def.replacementSoundDef.defName} here");
 								soundDef.PlayOneShotOnCamera();
 								i = stackTrace.FrameCount;
-								Log_.Warning($"# Should have played {def.replacementSound.defName} there");
+								Log_.Warning($"# Should have played {def.replacementSoundDef.defName} there");
 								break;
 							}
 						}

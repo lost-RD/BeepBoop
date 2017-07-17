@@ -8,8 +8,8 @@ namespace RD_BeepBoop
 {
 	class CustomAlertDef : Def
 	{
-		public MessageSound sourceSound;
-		public SoundDef replacementSound;
+		public MessageSound sourceMessageSound;
+		public SoundDef replacementSoundDef;
 		public string sourceClass;
 		public string sourceMethod;
 
@@ -48,7 +48,7 @@ namespace RD_BeepBoop
 			{
 				yield return "no source method";
 			}
-			if (this.replacementSound == null)
+			if (this.replacementSoundDef == null)
 			{
 				yield return "no replacement sound";
 			}

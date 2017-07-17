@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Defs>
 	<RD_BeepBoop.CustomAlertDef>
-		<defName>WhenMyPawnDies</defName>
+		<defName>ColonistDied</defName>
 		<sourceMessageSound>Negative</sourceMessageSound>
 		<replacementSoundDef>PawnDeath</replacementSoundDef>
 		<sourceClass>Pawn_HealthTracker</sourceClass>
@@ -9,10 +9,98 @@
 	</RD_BeepBoop.CustomAlertDef>
 	
 	<RD_BeepBoop.CustomAlertDef>
-		<defName>WhenMyPlantDies</defName>
+		<defName>CropDiedOfCold</defName>
 		<sourceMessageSound>Negative</sourceMessageSound>
-		<replacementSoundDef>PlantDeath</replacementSoundDef>
+		<replacementSoundDef>MessageAlert</replacementSoundDef>
 		<sourceClass>Plant</sourceClass>
 		<sourceMethod>MakeLeafless</sourceMethod>
+	</RD_BeepBoop.CustomAlertDef>
+	
+	<RD_BeepBoop.CustomAlertDef>
+		<defName>BugHiveReproduced</defName>
+		<sourceMessageSound>Negative</sourceMessageSound>
+		<replacementSoundDef>MessageAlert</replacementSoundDef>
+		<sourceClass>CompSpawnerHives</sourceClass>
+		<sourceMethod>CompTickRare</sourceMethod>
+	</RD_BeepBoop.CustomAlertDef>
+	
+	<RD_BeepBoop.CustomAlertDef>
+		<defName>NoHandlerSkilledEnough</defName>
+		<sourceMessageSound>Negative</sourceMessageSound>
+		<replacementSoundDef>MessageAlert</replacementSoundDef>
+		<sourceClass>Designator_Tame</sourceClass>
+		<sourceMethod>FinalizeDesignationSucceeded</sourceMethod>
+	</RD_BeepBoop.CustomAlertDef>
+	
+	<RD_BeepBoop.CustomAlertDef>
+		<defName>FoodPoisoning</defName>
+		<sourceMessageSound>Negative</sourceMessageSound>
+		<replacementSoundDef>MessageAlert</replacementSoundDef>
+		<sourceClass>FoodUtility</sourceClass>
+		<sourceMethod>AddFoodPoisoningHediff</sourceMethod>
+	</RD_BeepBoop.CustomAlertDef>
+	
+	<RD_BeepBoop.CustomAlertDef>
+		<defName>AnimalInsanityPulse</defName>
+		<sourceMessageSound>Negative</sourceMessageSound>
+		<replacementSoundDef>MessageAlert</replacementSoundDef>
+		<sourceClass>Building_PsychicEmanator</sourceClass>
+		<sourceMethod>DoAnimalInsanityPulse</sourceMethod>
+	</RD_BeepBoop.CustomAlertDef>
+	
+	<RD_BeepBoop.CustomAlertDef>
+		<defName>AccidentalOverdose</defName>
+		<sourceMessageSound>Negative</sourceMessageSound>
+		<replacementSoundDef>MessageAlert</replacementSoundDef>
+		<sourceClass>CompDrug</sourceClass>
+		<sourceMethod>PostIngested</sourceMethod>
+	</RD_BeepBoop.CustomAlertDef>
+	
+	<RD_BeepBoop.CustomAlertDef>
+		<defName>WornApparelDeterioratedAway</defName>
+		<sourceMessageSound>Negative</sourceMessageSound>
+		<replacementSoundDef>MessageAlert</replacementSoundDef>
+		<sourceClass>Pawn_ApparelTracker</sourceClass>
+		<sourceMethod>TakeWearoutDamageForDay</sourceMethod>
+	</RD_BeepBoop.CustomAlertDef>
+	
+	<RD_BeepBoop.CustomAlertDef>
+		<defName>MedicalOperationFailureMinor</defName>
+		<sourceMessageSound>Negative</sourceMessageSound>
+		<replacementSoundDef>MessageAlert</replacementSoundDef>
+		<sourceClass>Recipe_Surgery</sourceClass>
+		<sourceMethod>CheckSurgeryFail</sourceMethod>
+	</RD_BeepBoop.CustomAlertDef>
+	
+	<RD_BeepBoop.CustomAlertDef>
+		<defName>CaravanMemberHasExtremeMentalBreak</defName>
+		<sourceMessageSound>Negative</sourceMessageSound>
+		<replacementSoundDef>MessageAlert</replacementSoundDef>
+		<sourceClass>MentalStateHandler</sourceClass>
+		<sourceMethod>TryStartMentalState</sourceMethod>
+	</RD_BeepBoop.CustomAlertDef>
+	
+	<RD_BeepBoop.CustomAlertDef>
+		<defName>CorpseEatenByPredator</defName>
+		<sourceMessageSound>Negative</sourceMessageSound>
+		<replacementSoundDef>MessageAlert</replacementSoundDef>
+		<sourceClass>Corpse</sourceClass>
+		<sourceMethod>IngestedCalculateAmounts</sourceMethod>
+	</RD_BeepBoop.CustomAlertDef>
+	
+	<RD_BeepBoop.CustomAlertDef>
+		<defName>Miscarriage</defName>
+		<sourceMessageSound>Negative</sourceMessageSound>
+		<replacementSoundDef>MessageAlert</replacementSoundDef>
+		<sourceClass>Hediff_Pregnant</sourceClass>
+		<sourceMethod>Tick</sourceMethod>
+	</RD_BeepBoop.CustomAlertDef>
+	
+	<RD_BeepBoop.CustomAlertDef>
+		<defName>RoofCollapsed</defName>
+		<sourceMessageSound>Negative</sourceMessageSound>
+		<replacementSoundDef>MessageAlert</replacementSoundDef>
+		<sourceClass>RoofCollapseBufferResolver</sourceClass>
+		<sourceMethod>CollapseRoofsMarkedToCollapse</sourceMethod>
 	</RD_BeepBoop.CustomAlertDef>
 </Defs>

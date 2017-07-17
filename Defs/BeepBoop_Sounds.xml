@@ -21,6 +21,25 @@
   </SoundDef>
 
   <SoundDef>
+    <defName>OhNo</defName>
+    <eventNames />
+    <subSounds>
+      <li>
+        <onCamera>True</onCamera>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>OhNo</clipPath>
+          </li>
+        </grains>
+        <volumeRange>
+          <min>50</min>
+          <max>50</max>
+        </volumeRange>
+      </li>
+    </subSounds>
+  </SoundDef>
+
+  <SoundDef>
     <defName>PawnDeath</defName>
     <eventNames />
     <subSounds>

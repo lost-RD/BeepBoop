@@ -8,26 +8,11 @@ namespace RD_BeepBoop
 {
 	class CustomAlertDef : Def
 	{
-		public MessageSound sourceMessageSound;
-		public SoundDef replacementSoundDef;
 		public string sourceClass;
 		public string sourceMethod;
 
-		public Type type
-		{
-			get
-			{
-				return AccessTools.TypeByName(sourceClass);
-			}
-		}
-
-		public MethodBase method
-		{
-			get
-			{
-				return type.GetMethod(sourceMethod);
-			}
-		}
+		public MessageSound sourceMessageSound;
+		public SoundDef replacementSoundDef;
 
 		public static CustomAlertDef Named(string defName)
 		{

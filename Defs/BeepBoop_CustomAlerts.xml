@@ -103,4 +103,20 @@
 		<sourceClass>RoofCollapseBufferResolver</sourceClass>
 		<sourceMethod>CollapseRoofsMarkedToCollapse</sourceMethod>
 	</RD_BeepBoop.CustomAlertDef>
+	
+	<RD_BeepBoop.CustomAlertDef>
+		<defName>GenerateSurgeryOption</defName>
+		<sourceMessageSound>Negative</sourceMessageSound>
+		<replacementSoundDef>BeepBeep</replacementSoundDef>
+		<sourceClass>HealthCardUtility</sourceClass>
+		<sourceMethod>GenerateSurgeryOption</sourceMethod>
+	</RD_BeepBoop.CustomAlertDef>
+	
+	<RD_BeepBoop.CustomAlertDef>
+		<defName>OutdoorSpeedPenalty</defName>
+		<sourceMessageSound>Negative</sourceMessageSound>
+		<replacementSoundDef>BeepBeep</replacementSoundDef>
+		<sourceClass>PlaceWorker_ReportWorkSpeedPenalties</sourceClass>
+		<sourceMethod>PostPlace</sourceMethod>
+	</RD_BeepBoop.CustomAlertDef>
 </Defs>

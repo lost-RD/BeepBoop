@@ -88,85 +88,88 @@ namespace RD_BeepBoop
 
 		static void Postfix(object msg, MessageSound __state)
 		{
-			IEnumerable<CustomAlertDef> list;
-			SoundDef soundDef = null;
-			switch (__state)
+			if (__state != MessageSound.Silent)
 			{
-				case MessageSound.Standard:
-					soundDef = SoundDefOf.MessageAlert;
-					list = Main.alertsStandard;
-					break;
-				case MessageSound.RejectInput:
-					soundDef = SoundDefOf.ClickReject;
-					list = Main.alertsRejectInput;
-					break;
-				case MessageSound.Benefit:
-					soundDef = SoundDefOf.MessageBenefit;
-					list = Main.alertsBenefit;
-					break;
-				case MessageSound.Negative:
-					soundDef = SoundDefOf.MessageAlertNegative;
-					list = Main.alertsNegative;
-					break;
-				case MessageSound.SeriousAlert:
-					soundDef = SoundDefOf.MessageSeriousAlert;
-					list = Main.alertsSeriousAlert;
-					break;
-				default:
-					soundDef = null;
-					list = null;
-					break;
-			}
-			string firstFrameType = null;
-			string firstFrameMethod = null;
-			Log_.Warning($"Message postfix for {__state.ToString()}");
-			string txt = Traverse.Create(msg).Field("text").GetValue<string>();
-			Log_.Error($"# Message {__state} txt='{txt}'");
-			StackTrace stackTrace = new StackTrace();
-			for (int i = 0; i < stackTrace.FrameCount; i++)
-			{
-				MethodBase method = stackTrace.GetFrame(i).GetMethod();
-				Type type = method.DeclaringType;
-				string typeString = type.Name;
-				string methodString = method.Name;
-				string frameString = typeString + "." + methodString;
-				if (Main.boringMethods.Contains(frameString))
+				IEnumerable<CustomAlertDef> list;
+				SoundDef soundDef = null;
+				switch (__state)
 				{
-					Log_.Message("Detected a method with no CustomAlertDef.");
-					break;
+					case MessageSound.Standard:
+						soundDef = SoundDefOf.MessageAlert;
+						list = Main.alertsStandard;
+						break;
+					case MessageSound.RejectInput:
+						soundDef = SoundDefOf.ClickReject;
+						list = Main.alertsRejectInput;
+						break;
+					case MessageSound.Benefit:
+						soundDef = SoundDefOf.MessageBenefit;
+						list = Main.alertsBenefit;
+						break;
+					case MessageSound.Negative:
+						soundDef = SoundDefOf.MessageAlertNegative;
+						list = Main.alertsNegative;
+						break;
+					case MessageSound.SeriousAlert:
+						soundDef = SoundDefOf.MessageSeriousAlert;
+						list = Main.alertsSeriousAlert;
+						break;
+					default:
+						soundDef = null;
+						list = null;
+						break;
 				}
-				if (typeString == "MessagesMessage_Patch" || methodString == "Message_Patch2" || methodString == "Message_Patch1" || (typeString == "Patch" && methodString == "Prefix"))
+				string firstFrameType = null;
+				string firstFrameMethod = null;
+				Log_.Warning($"Message postfix for {__state.ToString()}");
+				string txt = Traverse.Create(msg).Field("text").GetValue<string>();
+				Log_.Error($"# Message {__state} txt='{txt}'");
+				StackTrace stackTrace = new StackTrace();
+				for (int i = 0; i < stackTrace.FrameCount; i++)
 				{
-					continue;
-				}
-				Log_.Message($"# {i} - {frameString}");
-				if (firstFrameMethod == null && firstFrameType == null)
-				{
-					firstFrameType = typeString;
-					firstFrameMethod = methodString;
-				}
-				foreach (CustomAlertDef def in list)
-				{
-					Log_.Error($"Def: {def.sourceClass}.{def.sourceMethod}");
-					if (typeString == def.sourceClass && methodString == def.sourceMethod)
+					MethodBase method = stackTrace.GetFrame(i).GetMethod();
+					Type type = method.DeclaringType;
+					string typeString = type.Name;
+					string methodString = method.Name;
+					string frameString = typeString + "." + methodString;
+					if (Main.boringMethods.Contains(frameString))
 					{
-						soundDef = def.replacementSoundDef;
-						Log_.Warning($"# Should play {def.replacementSoundDef.defName} here");
-						soundDef.PlayOneShotOnCamera();
-						i = stackTrace.FrameCount;
-						Log_.Warning($"# Should have played {def.replacementSoundDef.defName} there");
+						Log_.Message("Detected a method with no CustomAlertDef.");
 						break;
 					}
+					if (typeString == "MessagesMessage_Patch" || methodString == "Message_Patch2" || methodString == "Message_Patch1" || (typeString == "Patch" && methodString == "Prefix"))
+					{
+						continue;
+					}
+					Log_.Message($"# {i} - {frameString}");
+					if (firstFrameMethod == null && firstFrameType == null)
+					{
+						firstFrameType = typeString;
+						firstFrameMethod = methodString;
+					}
+					foreach (CustomAlertDef def in list)
+					{
+						Log_.Error($"Def: {def.sourceClass}.{def.sourceMethod}");
+						if (typeString == def.sourceClass && methodString == def.sourceMethod)
+						{
+							soundDef = def.replacementSoundDef;
+							Log_.Warning($"# Should play {def.replacementSoundDef.defName} here");
+							soundDef.PlayOneShotOnCamera();
+							i = stackTrace.FrameCount;
+							Log_.Warning($"# Should have played {def.replacementSoundDef.defName} there");
+							break;
+						}
+					}
+					//Log_.Message("Did not find a matching CustomAlertDef");
 				}
-				//Log_.Message("Did not find a matching CustomAlertDef");
+				if (firstFrameType != null && firstFrameMethod != null)
+				{
+					string firstFrameString = firstFrameType + "." + firstFrameMethod;
+					Log_.Message($"First frame: {firstFrameString}; Adding to list of methods to be ignored");
+					Main.boringMethods.Add(firstFrameString);
+				}
+				soundDef.PlayOneShotOnCamera();
 			}
-			if (firstFrameType != null && firstFrameMethod != null)
-			{
-				string firstFrameString = firstFrameType + "." + firstFrameMethod;
-				Log_.Message($"First frame: {firstFrameString}; Adding to list of methods to be ignored");
-				Main.boringMethods.Add(firstFrameString);
-			}
-			soundDef.PlayOneShotOnCamera();
 		}
 	}
 }
